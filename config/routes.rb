@@ -3,13 +3,12 @@ Depot::Application.routes.draw do
 
   resources :carts
 
-  get "store/index"
+  get "store/index", :as => :store  #为url起一个名字，程序中就可以用这个名字找到这个url
 
-  resources :products do
-  resources :stores
-end
+  resources :products
+  
   get "home/index"
-  root :to => "home#index"
+  root :to => "store#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

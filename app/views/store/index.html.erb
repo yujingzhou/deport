@@ -4,8 +4,7 @@
 <h1>Your Pragmatic Catalog</h1>
 <% @products.each do |product| %>
 <div class="entry">
-  <%= url = line_items_path(:product_id => product) %>
-  <%= link_to image_tag(product.image_url, :border =>0), url, :method =>:post %>  <!-- 图片生成超链接 -->
+  <%= link_to image_tag(product.image_url, :border =>0), line_items_path(:product_id => product), :method =>:post %>  <!-- 图片生成超链接 -->
 <h3><%= product.title %></h3>
 <%=sanitize product.description %>
 <div class="price_line">

@@ -43,10 +43,11 @@ class LineItemsController < ApplicationController
     #@line_item = LineItem.new(params[:line_item])
     @cart = current_cart
     product = Product.find(params[:product_id])
-    @line_item = @cart.line_items.build(:product => product)
+    @line_item = @cart.add_product(product.id)
+  #  @line_item = @cart.line_items.build(:product => product) #这是之前
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to(@line_item.cart, :notice => 'Line item was successfully created.') } #这有问题
+        format.html { redirect_to(@line_item.cart) } #这有问题
         format.xml  { render :xml => @line_item, :status => :created, :location => @line_item }
       else
         format.html { render :action => "new" }

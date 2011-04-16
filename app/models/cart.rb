@@ -13,4 +13,7 @@ class Cart < ActiveRecord::Base
   def total_price
     line_items.to_a.sum { |item| item.total_price }
   end
+  def total_items    #计算当前购物车中的商品总数量，create
+    line_items.sum(:quantity)
+  end
 end

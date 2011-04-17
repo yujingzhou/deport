@@ -1,11 +1,15 @@
 Depot::Application.routes.draw do
+  resources :orders
+
   resources :line_items
 
   resources :carts
 
   get "store/index", :as => :store  #为url起一个名字，程序中就可以用这个名字找到这个url
 
-  resources :products
+  resources :products do
+    get :who_bought, :on => :member
+  end
   
   get "home/index"
   root :to => "store#index"

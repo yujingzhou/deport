@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.xml
   def index
-   # @orders = Order.all
+    # @orders = Order.all
     @orders = Order.paginate :page=>params[:page], :order=>'created_at desc', :per_page =>10
 
     respond_to do |format|
@@ -51,6 +51,12 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
+        result = Notifier.order_received(@order).deliver
+
+        puts '.........................................'
+        puts result
+        puts '.........................................'
+
         format.html { redirect_to(store_url, :notice =>
               'Thank you for your order.' ) }
         format.xml { render :xml => @order, :status => :created,
